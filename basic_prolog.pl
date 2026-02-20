@@ -1,16 +1,48 @@
+male(alim).
+male(belal).
+male(camal).
+male(dipto).
 
-find_max(X, Y, X) :- X >= Y, !. 
-find_max(X, Y, Y) :- X < Y. 
-find_min(X, Y, X) :- X =< Y, !. 
-find_min(X, Y, Y) :- X > Y.
+female(rita).
+female(shila).
+female(nila).
+female(tania).
+
+father(alim, camal).
+mother(rita, camal).
+
+father(alim, nila).
+mother(rita, nila).
+
+father(camal, dipto).
+mother(nila, tania).
+
+father(belal, tania).
+mother(shila, tania).
+
+parent(X, Y) :- father(X, Y).
+parent(X, Y) :- mother(X, Y).
+
+sibling(X, Y) :-
+    parent(P, X),
+    parent(P, Y),
+    X \= Y.
+
+grandparent(X, Y) :-
+    parent(X, Z),
+    parent(Z, Y).
 
 
+% 2. Like-Dislike:
 
-series(R1, R2, Re) :- Re is R1 + R2. 
-parallel(R1, R2, Re) :- Re is ((R1 * R2) / (R1 + R2)). 
+likes(alim, tea).
+likes(alim, cricket).
+likes(belal, coffee).
 
- 
-vertical(seg(point(X,_), point(X,_))). 
-horizontal(seg(point(_,Y), point(_,Y))). 
-oblique(seg(point(X1,Y1), point(X2,Y2))) :-  
-X1 \== X2, Y1 \== Y2.
+dislikes(alim, smoking).
+dislikes(belal, tea).
+
+friend(X, Y) :-
+    likes(X, Z),
+    likes(Y, Z),
+    X \= Y.
